@@ -1,5 +1,53 @@
+<%@ page import = "com.gadgetbadget.marketplace.model.Product" %>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+    
+    <%
+if (request.getParameter("action") != null)
+{ 
+	 Product productObj = new Product();
+	 
+	 //itemObj.connect();//For testing the connect method
+	 
+	 //call insert function
+	 if ( request.getParameter("action").equalsIgnoreCase("insert"))
+	 {
+		 String stsMsg = productObj.insertProduct(request.getParameter("researcher_id"),
+				 request.getParameter("product_name"), 
+				 request.getParameter("product_description"),
+				 request.getParameter("category_id") ,
+				 Integer.parseInt(request.getParameter("available_items")),
+				 Float.parseFloat(request.getParameter("price"))).toString();
+ 		 session.setAttribute("statusMsg", stsMsg);
+ 	 }
+	 
+	 //call update function
+	 else if (request.getParameter("action").equalsIgnoreCase("update"))
+	 {
+		System.out.println("newUpdate");
+	    String stsMsg = productObj.updateProduct(request.getParameter("product_id"),
+	    		request.getParameter("researcher_id"),
+				request.getParameter("product_name"), 
+				request.getParameter("product_description"),
+				request.getParameter("category_id") ,
+				Integer.parseInt(request.getParameter("available_items")),
+				Float.parseFloat(request.getParameter("price"))).toString();
+	 	session.setAttribute("statusMsg", stsMsg);
+	 }
+	 
+	 //call delete function
+	 else if(request.getParameter("action").equalsIgnoreCase("delete"))
+	 {
+		System.out.println("newDelete");
+	 	String stsMsg = productObj.deleteProduct(request.getParameter("researcher_id"), request.getParameter("product_id")).toString();
+	    session.setAttribute("statusMsg", stsMsg);
+	 }
+ 
+
+}	
+ %>
+    
+    
 <!DOCTYPE html>
 <html>
 <head>
@@ -22,7 +70,7 @@
 	<div class="input-group-prepend">
 				<span class="input-group-text" id="lblName">Researcher ID : </span>
 				 </div>
-				 <input type="text" id="researcherID" name="researcherID">
+				 <input type="text" id="researcher_id" name="researcher_id">
 				 </div>
 			 
 	<!--PRODUCT NAME-->
@@ -30,7 +78,7 @@
 	<div class="input-group-prepend">
 				<span class="input-group-text" id="lblName">Product Name : </span>
 				 </div>
-				 <input type="text" id="productName" name="productName">
+				 <input type="text" id="product_name" name="product_name">
 				 </div>
 				 
 	<!--PRODUCT DESCRIPTION-->
@@ -38,16 +86,17 @@
 	<div class="input-group-prepend">
 				<span class="input-group-text" id="lblName">Product Description : </span>
 				 </div>
-				 <input type="text" id="productDescription" name="productDescription">
+				 <input type="text" id="product_description" name="product_description">
 				 </div>
 		 
 	<!-- CATEGORY ID -->
 	<div class="input-group input-group-sm mb-3">
 	<div class="input-group-prepend">
 	 		<span class="input-group-text" id="lblName">
-	 			<label for="categoryid"> Category ID :</label></span>
+	 			<label for="category_id"> Category ID :</label></span>
 				 </div>
-				<select name="categoryid" id="categoryid">
+				<select name="category_id" id="category_id">
+					<option value="PC21000000">---Select Product Category---</option>
 				    <option value="PC21000001">PC21000001</option>
 				    <option value="PC21000002">PC21000002</option>
 				    <option value="PC21000003">PC21000003</option>
