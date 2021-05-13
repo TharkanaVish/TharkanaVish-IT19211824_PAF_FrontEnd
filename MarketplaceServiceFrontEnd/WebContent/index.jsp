@@ -7,7 +7,7 @@
 <title>Marketplace</title>
 <link rel="stylesheet" href="Views/bootstrap.min.css">
 <script src="Components/jquery-3.2.1.min.js"></script>
-<script src="Components/main.js"></script>
+<script src="Components/marketplace.js"></script>
 </head>
 <body>
 <div class="container">
@@ -76,6 +76,7 @@
 				 </div>
 				 <input type="text" id="price" name="price">
 				 </div>
+				 
  <div id="alertSuccess" class="alert alert-success"></div>
  <div id="alertError" class="alert alert-danger"></div>
 <input type="button" id="btnSave" value="ADD Product" class="btn btn-primary">
